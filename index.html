@@ -395,15 +395,20 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Envoi...';
 
-      fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-        .then(() => {
+      fetch('https://formsubmit.co/ajax/marc17aurel07@gmail.com', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function(response) {
+        if (response.ok || response.status === 200) {
           form.classList.add('hidden');
           thankYou.classList.remove('hidden');
           thankYou.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          throw new Error('Erreur');
+        }
+      })
         })
         .catch(() => {
           submitBtn.disabled = false;
